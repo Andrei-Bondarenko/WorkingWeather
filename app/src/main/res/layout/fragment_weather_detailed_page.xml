@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6b6b6b"
+    tools:context="com.example.detail_page.WeatherDetailedPageFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarDetailPageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#424242"
+        android:elevation="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_default_arrow_left"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        app:titleTextColor="@color/white"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="8"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDetailData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarDetailPageTitle">
+
+        <TextView
+            android:id="@+id/textViewFeelsLikeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/feels_like" />
+
+        <TextView
+            android:id="@+id/textViewFeelsLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="14 C" />
+
+        <TextView
+            android:id="@+id/textViewTempMinText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/min_temperature" />
+
+        <TextView
+            android:id="@+id/textViewTempMin"
+            style="textViewWeatherInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="14 C" />
+
+        <TextView
+            android:id="@+id/textViewTempMaxText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/max_temperature" />
+
+        <TextView
+            android:id="@+id/textViewTempMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="14 C" />
+
+        <TextView
+            android:id="@+id/textViewPressureText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure" />
+
+        <TextView
+            android:id="@+id/textViewPressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="14 C" />
+
+        <TextView
+            android:id="@+id/textViewHumidityText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/humidity" />
+
+        <TextView
+            android:id="@+id/textViewHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="14 C" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonFiveDaysInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/five_days"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDetailData"
+        app:layout_constraintWidth_percent="0.5"
+        app:rippleColor="@color/blue" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
