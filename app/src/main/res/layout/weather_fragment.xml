@@ -5,7 +5,7 @@
     android:id="@+id/constraintContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img">
+    android:background="@drawable/clear_sky">
 
 
     <Button
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fiveDaysWeather"
+        android:id="@+id/moreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="40dp"

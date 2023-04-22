@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6b6b6b"
+    android:background="#00BCD4"
     tools:context="com.example.detail_page.WeatherDetailedPageFragment">
 
 
@@ -12,102 +12,227 @@
         android:id="@+id/toolBarDetailPageTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#424242"
         android:elevation="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_default_arrow_left"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        app:titleTextColor="@color/white"
         android:shadowColor="#FFFFFF"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
-        android:shadowRadius="8"/>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutDetailData"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:shadowRadius="8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolBarDetailPageTitle">
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/windSpeedContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="150dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/airHumidityContainer"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textViewFeelsLikeText"
+            android:id="@+id/windSpeedName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feels_like" />
+            android:text="@string/wind_speed"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textViewFeelsLike"
+            android:id="@+id/windSpeedTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="14 C" />
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewTempMinText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/min_temperature" />
-
-        <TextView
-            android:id="@+id/textViewTempMin"
-            style="textViewWeatherInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="14 C" />
-
-        <TextView
-            android:id="@+id/textViewTempMaxText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/max_temperature" />
-
-        <TextView
-            android:id="@+id/textViewTempMax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="14 C" />
-
-        <TextView
-            android:id="@+id/textViewPressureText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pressure" />
-
-        <TextView
-            android:id="@+id/textViewPressure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="14 C" />
-
-        <TextView
-            android:id="@+id/textViewHumidityText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/humidity" />
-
-        <TextView
-            android:id="@+id/textViewHumidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="14 C" />
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <LinearLayout
+        android:id="@+id/airHumidityContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="150dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/windSpeedContainer">
+
+        <TextView
+            android:id="@+id/airHumidityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/air_humidity"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/airHumidityTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/feelsLikeContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/windSpeedContainer"
+        app:layout_constraintEnd_toStartOf="@id/pressureContainer"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/feelsLikeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/feels_like"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/feelsLikeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/pressureContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/windSpeedContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/feelsLikeContainer">
+
+        <TextView
+            android:id="@+id/pressureName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/pressureTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/tempMinContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/pressureContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tempMaxContainer">
+
+        <TextView
+            android:id="@+id/tempMinName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/min_temp"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tempMinTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/tempMaxContainer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="#66FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/feelsLikeContainer"
+        app:layout_constraintEnd_toStartOf="@id/tempMinContainer"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tempMaxName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/max_temp"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tempMaxTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
         android:id="@+id/buttonFiveDaysInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="#03A9F4"
         android:text="@string/five_days"
-        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutDetailData"
+        app:layout_constraintTop_toBottomOf="@id/airHumidityContainer"
         app:layout_constraintWidth_percent="0.5"
-        app:rippleColor="@color/blue" />
+        app:rippleColor="#66FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

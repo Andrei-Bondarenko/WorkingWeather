@@ -18,7 +18,7 @@ fun Any.dateFormat(date: String) = buildString {
         .append(date.split(" ")[1].split(":")[1])
 }
 
-fun Fragment.tempDescription(temp: Float?): String {
+fun Fragment.tempDescription(temp: Double?): String {
     val descriptionOfTemp = requireContext().getString(R.string.celsius)
     val tempData = temp?.roundToInt()
     return buildString {

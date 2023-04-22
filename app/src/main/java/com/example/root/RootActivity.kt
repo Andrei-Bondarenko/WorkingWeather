@@ -17,7 +17,7 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val fragment = DefaultFragment()
-        replace(fragment, R.id.emptyContainer)
+        replace(fragment, R.id.fragmentContainer)
     }
 
     private fun replace(fragment: Fragment, id: Int) {

@@ -11,7 +11,12 @@ import com.example.utils.Client
 import com.example.utils.extensions.replace
 import com.example.weather.api.WeatherApi
 import com.example.common.mvp.BaseMvpFragment
+import com.example.detail_page.WeatherDetailedPageFragment
+import com.example.utils.Arguments
+import com.example.utils.extensions.replaceScreen
+import com.example.utils.extensions.withArgs
 import com.example.weather.interactor.WeatherInteractor
+import com.example.weather.model.Weather
 import com.example.weather.model.WeatherData
 import com.example.weather.repository.WeatherRemoteRepository
 import com.example.weather.start_page.ui.DefaultFragment
@@ -30,12 +35,19 @@ class WeatherFragment :
         getString(R.string.key)
     }
 
+    companion object {
+        fun newInstance() = WeatherFragment()
+    }
+
+
     private val api = Client.getClient().create(WeatherApi::class.java)
     private val remoteRepository = WeatherRemoteRepository(api)
     private val interactor = WeatherInteractor(remoteRepository)
     override val presenter: WeatherPresenter = WeatherPresenter(interactor)
 
     private lateinit var binding: WeatherFragmentBinding
+
+    private var weatherData: WeatherData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,18 +64,27 @@ class WeatherFragment :
             cityEditText.doAfterTextChanged {
                 presenter.getData(key, it.toString())
             }
+            buttonBackToMyCity.setOnClickListener {
+                replace(DefaultFragment.newInstance(),R.id.fragmentContainer)
+            }
+            moreButton.setOnClickListener {
+                replace(WeatherDetailedPageFragment.newInstance(weatherData),R.id.fragmentContainer)
+
+            }
+
         }
     }
 
     override fun showData(data: WeatherData) {
         Timber.d("______showData: %s", data)
+        weatherData = data
         with(binding) {
             tempTextView.text = data.main.temp.roundToInt().toString()
             weatherTextView.text = data.weather.first().description
             airHumidityTextView.text = data.main.humidity.toString()
             windSpeedTextView.text = data.wind.speed.toString()
             feelsLikeTextView.text = data.main.feels_like.toString()
-           changeBackgroundImage(data)
+            changeBackgroundImage(data)
         }
     }
 

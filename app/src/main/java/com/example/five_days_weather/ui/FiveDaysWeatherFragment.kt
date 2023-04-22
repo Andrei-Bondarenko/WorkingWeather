@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.example.common.mvp.BaseMvpFragment
 import com.example.five_days_weather.api.WeatherApi
 import com.example.five_days_weather.interactor.WeatherInteractor
 import com.example.five_days_weather.model.WeatherData
 import com.example.five_days_weather.repository.WeatherRemoteRepository
+import com.example.five_days_weather.ui.adapter.FiveDaysWeatherAdapter
 import com.example.utils.Arguments.CITY_NAME
 import com.example.utils.Client
 import com.example.utils.extensions.args
 import com.example.utils.extensions.withArgs
 import com.example.workingweather.R
+import com.example.workingweather.databinding.FragmentFiveDaysWeatherBinding
 import com.example.workingweather.databinding.ItemWeatherBinding
 import timber.log.Timber
 
@@ -37,36 +40,37 @@ class FiveDaysWeatherFragment :
     private val remoteRepository = WeatherRemoteRepository(api)
     private val interactor = WeatherInteractor(remoteRepository)
     override val presenter: FiveDaysWeatherPresenter = FiveDaysWeatherPresenter(interactor)
+    private val adapter: FiveDaysWeatherAdapter = FiveDaysWeatherAdapter()
 
-    private lateinit var binding: ItemWeatherBinding
+    private lateinit var binding: FragmentFiveDaysWeatherBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ItemWeatherBinding.inflate(inflater, container, false)
+        binding = FragmentFiveDaysWeatherBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         key = getString(R.string.key)
-        presenter.attach(this)
         with(binding) {
-
+            recyclerView.adapter = adapter
+            cityName?.let { presenter.getData(key, it) }
         }
+
     }
 
 
     override fun showData(data: WeatherData) {
         Timber.d("______showData: $data")
-        var gradusesC: Int = data.listWeather.first().main.temp.toInt()
-        gradusesC -= 272
+        adapter.setData(data.listWeather)
     }
 
     override fun showLoading(isVisible: Boolean) {
-
+        binding.progressFiveDays.isVisible = isVisible
     }
 
     override fun showError(e: String) {

@@ -8,7 +8,7 @@ object WeatherConverter {
         return WeatherData(
             cod = response.cod,
             message = response.message,
-            listWeather = fromNetwork(response.listWeather),
+            listWeather = fromNetwork(response.list),
             cnt = response.cnt,
             city = fromNetwork(response.city)
         )

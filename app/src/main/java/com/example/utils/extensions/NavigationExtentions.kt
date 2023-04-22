@@ -6,11 +6,11 @@ import com.example.workingweather.R
 
 private const val PREVIOUS_FRAGMENT_TAG_ARG = "PREVIOUS_FRAGMENT_TAG_ARG"
 
-fun Fragment.replace(fragment: Fragment) {
+fun Fragment.replace(fragment: Fragment, id:Int) {
     val fragmentManager = requireActivity().supportFragmentManager
     val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
     fragmentTransaction.addToBackStack(null)
-        .replace(R.id.emptyContainer, fragment)
+        .replace(id, fragment)
         .commit()
 }
 
@@ -37,7 +37,7 @@ private fun Fragment.getPreviousTag(): String? = arguments?.getString(PREVIOUS_F
 
 
 fun Fragment.getCurrentScreen(): Fragment? =
-    childFragmentManager.findFragmentById(R.id.emptyContainer)
+    childFragmentManager.findFragmentById(R.id.fragmentContainer)
 
 fun Fragment.replaceScreen(
     fragment: Fragment,
@@ -54,7 +54,7 @@ fun Fragment.replaceScreen(
                 ?.let { it.getPreviousTag() ?: it::class.java.name }
                 ?.let { fragment.appendArgs(PREVIOUS_FRAGMENT_TAG_ARG to it) }
         }
-        replace(R.id.emptyContainer, fragment, tag)
+        replace(R.id.fragmentContainer, fragment, tag)
         if (addToBackStack) addToBackStack(tag)
         if (requestCode != null) fragment.setTargetFragment(this@replaceScreen, requestCode)
     }

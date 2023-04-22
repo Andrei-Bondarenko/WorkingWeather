@@ -19,7 +19,7 @@ class FiveDaysWeatherPresenter(
                 view?.showLoading(false)
                 view?.showData(weatherData)
             } catch (t: Throwable) {
-                Timber.e("DATA ERROR ---->>>>>", t.message.toString())
+                Timber.e("DATA ERROR ---->>>>>$t")
             } finally {
                 view?.showLoading(false)
             }

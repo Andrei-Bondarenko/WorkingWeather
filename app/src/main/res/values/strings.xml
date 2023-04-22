@@ -17,13 +17,14 @@
     <string name="evening">Evening</string>
     <string name="morning">Morning</string>
     <string name="humidity">Humidity</string>
-    <string name="celsius">celsius</string>
+    <string name="celsius">°C</string>
     <string name="five_days_weather">Five days weather</string>
     <string name="wind_speed">Wind speed</string>
     <string name="air_humidity">Air humidity</string>
     <string name="feels_like">Feels like</string>
     <string name="five_days">five_days</string>
-    <string name="pressure">pressure</string>
-    <string name="max_temperature">max_temperature</string>
-    <string name="min_temperature">min_temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="max_temp">Max temp</string>
+    <string name="min_temp">Min temp</string>
+    <string name="more">MORE</string>
 </resources>

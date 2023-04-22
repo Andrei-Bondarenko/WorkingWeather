@@ -1,10 +1,9 @@
 package com.example.five_days_weather.api.model
 
 data class WeatherDataResponse(
-    val cod:Int,
+    val cod:String,
     val message:Int,
     val cnt:Int,
-    val listWeather: List<ListWeatherResponse>,
+    val list: List<ListWeatherResponse>,
     val city:CityResponse
-
 )

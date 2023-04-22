@@ -12,7 +12,7 @@ data class ListWeather(
     val clouds: Clouds,
     val wind: Wind,
     val visibility: Int,
-    val pop:Int,
+    val pop: Double,
     val sys: Sys,
     val dt_txt: String,
 ): Parcelable {

@@ -1,3 +1,6 @@
 package com.example.weather.model
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class Clouds(val all:Int)
+@Parcelize
+data class Clouds(val all:Int): Parcelable

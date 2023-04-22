@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.common.mvp.BaseMvpFragment
+import com.example.detail_page.WeatherDetailedPageFragment
+import com.example.utils.Arguments
 import com.example.utils.Client
+import com.example.utils.extensions.replace
+import com.example.utils.extensions.replaceScreen
+import com.example.utils.extensions.withArgs
 import com.example.weather.api.WeatherApi
 import com.example.weather.interactor.WeatherInteractor
 import com.example.weather.model.WeatherData
 import com.example.weather.repository.WeatherRemoteRepository
+import com.example.weather.ui.WeatherFragment
 import com.example.workingweather.R
 import com.example.workingweather.databinding.FragmentDefaultBinding
 import timber.log.Timber
@@ -25,12 +31,19 @@ class DefaultFragment :
     private val key by lazy {
         getString(R.string.key)
     }
+
+    companion object {
+        fun newInstance() = DefaultFragment()
+    }
+
+
     private val remoteRepository = WeatherRemoteRepository(api)
     private val interactor = WeatherInteractor(remoteRepository)
     override val presenter: DefaultPagePresenter = DefaultPagePresenter(interactor)
 
     private lateinit var binding: FragmentDefaultBinding
 
+    private var weatherData: WeatherData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +57,20 @@ class DefaultFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getData(key, binding.myCityTextView.text.toString())
+        with(binding) {
+            buttonShowOtherCity.setOnClickListener {
+                replace(WeatherFragment.newInstance(),R.id.fragmentContainer)
+            }
+            moreButton.setOnClickListener {
+                replace(WeatherDetailedPageFragment.newInstance(weatherData),R.id.fragmentContainer)
+            }
+
+        }
     }
 
     override fun showData(data: WeatherData) {
         Timber.d("_____showData: %s", data)
+        weatherData = data
         with(binding) {
             tempTextView.text = data.main.temp.roundToInt().toString()
             weatherTextView.text = data.weather.first().description

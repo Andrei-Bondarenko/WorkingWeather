@@ -8,7 +8,7 @@ data class ListWeatherResponse(
     val clouds: CloudsResponse,
     val wind: WindResponse,
     val visibility: Int,
-    val pop:Int,
+    val pop:Double,
     val sys: SysResponse,
     val dt_txt: String,
 )
