@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.five_days_weather.model.ListWeather
 import com.example.workingweather.R
 
-class FiveDaysWeatherAdapter : RecyclerView.Adapter<FiveDaysWeatherViewHolder>() {
+class FiveDaysWeatherAdapter(
+    private val clickOnDay: (ListWeather) -> Unit
+) : RecyclerView.Adapter<FiveDaysWeatherViewHolder>() {
 
     private val data = mutableListOf<ListWeather>()
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.common.mvp.BaseMvpFragment
+import com.example.details_of_item.DetailsPageItemFragment
 import com.example.five_days_weather.api.WeatherApi
 import com.example.five_days_weather.interactor.WeatherInteractor
 import com.example.five_days_weather.model.WeatherData
@@ -14,6 +15,7 @@ import com.example.five_days_weather.ui.adapter.FiveDaysWeatherAdapter
 import com.example.utils.Arguments.CITY_NAME
 import com.example.utils.Client
 import com.example.utils.extensions.args
+import com.example.utils.extensions.replace
 import com.example.utils.extensions.withArgs
 import com.example.workingweather.R
 import com.example.workingweather.databinding.FragmentFiveDaysWeatherBinding
@@ -40,7 +42,11 @@ class FiveDaysWeatherFragment :
     private val remoteRepository = WeatherRemoteRepository(api)
     private val interactor = WeatherInteractor(remoteRepository)
     override val presenter: FiveDaysWeatherPresenter = FiveDaysWeatherPresenter(interactor)
-    private val adapter: FiveDaysWeatherAdapter = FiveDaysWeatherAdapter()
+    private val adapter: FiveDaysWeatherAdapter by lazy {
+        FiveDaysWeatherAdapter {item ->
+            replace(DetailsPageItemFragment.newInstance(item), R.id.fragmentContainer)
+        }
+    }
 
     private lateinit var binding: FragmentFiveDaysWeatherBinding
 
