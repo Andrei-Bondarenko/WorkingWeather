@@ -22,7 +22,7 @@
     <string name="wind_speed">Wind speed</string>
     <string name="air_humidity">Air humidity</string>
     <string name="feels_like">Feels like</string>
-    <string name="five_days">five_days</string>
+    <string name="five_days">five days</string>
     <string name="pressure">Pressure</string>
     <string name="max_temp">Max temp</string>
     <string name="min_temp">Min temp</string>

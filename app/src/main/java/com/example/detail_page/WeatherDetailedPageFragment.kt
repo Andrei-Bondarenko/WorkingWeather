@@ -50,6 +50,9 @@ class WeatherDetailedPageFragment : BaseFragment(R.layout.fragment_weather_detai
                 val cityName = toolBarDetailPageTitle.title.toString()
                 replace(FiveDaysWeatherFragment.newInstance(cityName),R.id.fragmentContainer)
             }
+            toolBarDetailPageTitle.setNavigationOnClickListener{
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
     }
 

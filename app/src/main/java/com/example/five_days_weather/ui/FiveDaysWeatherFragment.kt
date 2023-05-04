@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.example.common.mvp.BaseFragment
 import com.example.common.mvp.BaseMvpFragment
 import com.example.details_of_item.DetailsPageItemFragment
 import com.example.five_days_weather.api.WeatherApi
@@ -17,17 +18,19 @@ import com.example.utils.Client
 import com.example.utils.extensions.args
 import com.example.utils.extensions.replace
 import com.example.utils.extensions.withArgs
+import com.example.weather.ui.WeatherViewModel
 import com.example.workingweather.R
 import com.example.workingweather.databinding.FragmentFiveDaysWeatherBinding
-import com.example.workingweather.databinding.ItemWeatherBinding
+import com.example.workingweather.databinding.FragmentWeatherBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+private const val KEY = "7465cd2201320080ec76abc3b7bb945d"
 
-class FiveDaysWeatherFragment :
-    BaseMvpFragment<FiveDaysWeatherContract.View, FiveDaysWeatherContract.Presenter>(R.layout.fragment_five_days_weather),
-    FiveDaysWeatherContract.View {
+class FiveDaysWeatherFragment : BaseFragment(R.layout.fragment_five_days_weather) {
 
-
+    private val viewModel: FiveDaysWeatherViewModel by viewModel()
+    private lateinit var binding: FragmentFiveDaysWeatherBinding
 
     companion object {
         fun newInstance(cityName: String) = FiveDaysWeatherFragment()
@@ -37,18 +40,12 @@ class FiveDaysWeatherFragment :
     private val cityName: String? by args(CITY_NAME)
 
 
-    private val api: WeatherApi = Client.getClient().create(WeatherApi::class.java)
-    private lateinit var key: String
-    private val remoteRepository = WeatherRemoteRepository(api)
-    private val interactor = WeatherInteractor(remoteRepository)
-    override val presenter: FiveDaysWeatherPresenter = FiveDaysWeatherPresenter(interactor)
+
     private val adapter: FiveDaysWeatherAdapter by lazy {
         FiveDaysWeatherAdapter {item ->
             replace(DetailsPageItemFragment.newInstance(item), R.id.fragmentContainer)
         }
     }
-
-    private lateinit var binding: FragmentFiveDaysWeatherBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,26 +58,26 @@ class FiveDaysWeatherFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        key = getString(R.string.key)
         with(binding) {
             recyclerView.adapter = adapter
-            cityName?.let { presenter.getData(key, it) }
+            cityName?.let { viewModel.getWeatherData(KEY, it) }
         }
-
     }
 
+    fun bind() {
+        viewModel.fiveDaysWeatherLiveData.observe(viewLifecycleOwner) { listWeather ->
+            showData(listWeather)
+        }
 
-    override fun showData(data: WeatherData) {
+        with(binding) {
+            viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                progressFiveDays.isVisible = isLoading
+            }
+        }
+    }
+
+     fun showData(data: WeatherData) {
         Timber.d("______showData: $data")
         adapter.setData(data.listWeather)
     }
-
-    override fun showLoading(isVisible: Boolean) {
-        binding.progressFiveDays.isVisible = isVisible
-    }
-
-    override fun showError(e: String) {
-        Timber.d("_____FIVE DAIS FRAGMENT WEATHER ERROR====>>>> $e")
-    }
-
 }

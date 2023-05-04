@@ -3,19 +3,36 @@ package com.example.utils.extensions
 import androidx.fragment.app.Fragment
 import com.example.five_days_weather.ui.adapter.EnumWeatherDescriptionType
 import com.example.workingweather.R
+import timber.log.Timber
 import kotlin.math.roundToInt
 
 fun Any.dateFormat(date: String) = buildString {
-    append(date.split(" ")[0].split("-")[2])
+
+    val splitDate = date.split(" ")
+
+    val onlyDate = splitDate[0].split("-")
+    val onlyTime = splitDate[1].split(":")
+
+    append(onlyDate[2])
         .append(".")
-        .append(date.split(" ")[0].split("-")[1])
+        .append(onlyDate[1])
         .append(".")
-        .append(date.split(" ")[0].split("-")[0][2])
-        .append(date.split(" ")[0].split("-")[0][3])
+        .append(onlyDate[0][2])
+        .append(onlyDate[0][3])
         .append(" / ")
-        .append(date.split(" ")[1].split(":")[0])
+        .append(onlyTime[0])
         .append(":")
-        .append(date.split(" ")[1].split(":")[1])
+        .append(onlyTime[1])
+//    append(date.split(" ")[0].split("-")[2])
+//        .append(".")
+//        .append(date.split(" ")[0].split("-")[1])
+//        .append(".")
+//        .append(date.split(" ")[0].split("-")[0][2])
+//        .append(date.split(" ")[0].split("-")[0][3])
+//        .append(" / ")
+//        .append(date.split(" ")[1].split(":")[0])
+//        .append(":")
+//        .append(date.split(" ")[1].split(":")[1])
 }
 
 fun Fragment.tempDescription(temp: Double?): String {

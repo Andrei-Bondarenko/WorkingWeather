@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
+import timber.log.Timber
 
 
 abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>>(
     @LayoutRes layoutRes: Int
 ) : BaseFragment(layoutRes), MvpView {
+
     abstract val presenter: P
+
+    override fun onStart() {
+        super.onStart()
+        Timber.d("=== onStart ${javaClass.name} ===")
+    }
 
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,6 +31,8 @@ abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>>(
         presenter.detach()
     }
 }
+
+
 
 
 
