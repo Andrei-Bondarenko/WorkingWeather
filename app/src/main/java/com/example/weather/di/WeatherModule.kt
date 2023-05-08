@@ -6,6 +6,7 @@ import com.example.weather.interactor.WeatherInteractor
 import com.example.weather.repository.WeatherRemoteRepository
 import com.example.weather.repository.WeatherRepository
 import com.example.weather.ui.WeatherViewModel
+import com.example.weather.start_page.ui.DefaultViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
@@ -20,6 +21,7 @@ object WeatherModule : InjectionModule {
         factoryOf(::WeatherInteractor)
 
         viewModelOf(::WeatherViewModel)
+        viewModelOf(::DefaultViewModel)
     }
 }
 

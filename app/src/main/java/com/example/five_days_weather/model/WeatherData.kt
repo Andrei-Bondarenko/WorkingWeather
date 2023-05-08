@@ -6,5 +6,4 @@ data class WeatherData(
     val cnt:Int,
     val listWeather: List<ListWeather>,
     val city:City
-
 )

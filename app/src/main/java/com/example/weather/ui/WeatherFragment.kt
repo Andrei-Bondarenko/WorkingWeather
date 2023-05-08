@@ -48,13 +48,6 @@ class WeatherFragment :
             observe(viewModel.weatherFlow) { weatherData ->
                 showData(weatherData)
                 changeBackgroundImage(weatherData)
-
-                moreButton.setOnClickListener {
-                    replace(
-                        WeatherDetailedPageFragment.newInstance(weatherData),
-                        R.id.fragmentContainer
-                    )
-                }
             }
             observe(viewModel.loading) { isLoading ->
                 progressBar.isVisible = isLoading
@@ -68,25 +61,30 @@ class WeatherFragment :
             buttonBackToMyCity.setOnClickListener {
                 replace(DefaultFragment.newInstance(), R.id.fragmentContainer)
             }
+            moreButton.setOnClickListener {
+                if (viewModel.weatherFlow.value != null){
+                    replace(WeatherDetailedPageFragment.newInstance(viewModel.weatherFlow.value),R.id.fragmentContainer)
+                }
+            }
         }
     }
 
-    fun showData(data: WeatherData) {
+    fun showData(data: WeatherData?) {
         Timber.d("______showData: %s", data)
         with(binding) {
-            tempTextView.text = data.main.temp.roundToInt().toString()
-            weatherTextView.text = data.weather.first().description
-            airHumidityTextView.text = data.main.humidity.toString()
-            windSpeedTextView.text = data.wind.speed.toString()
-            feelsLikeTextView.text = data.main.feels_like.toString()
+            tempTextView.text = data?.main?.temp?.roundToInt().toString()
+            weatherTextView.text = data?.weather?.first()?.description
+            airHumidityTextView.text = data?.main?.humidity.toString()
+            windSpeedTextView.text = data?.wind?.speed.toString()
+            feelsLikeTextView.text = data?.main?.feels_like.toString()
             changeBackgroundImage(data)
         }
     }
 
 
-    fun changeBackgroundImage(data: WeatherData) {
+    fun changeBackgroundImage(data: WeatherData?) {
         with(binding) {
-            when (data.weather.first().description) {
+            when (data?.weather?.first()?.description) {
                 "clear sky" -> constraintContainer.setBackgroundResource(R.drawable.clear_sky)
                 "overcast clouds" -> constraintContainer.setBackgroundResource(R.drawable.overcastclouds)
                 "few clouds" -> constraintContainer.setBackgroundResource(R.drawable.few_clouds)

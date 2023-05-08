@@ -10,19 +10,19 @@ import com.example.detail_page.WeatherDetailedPageFragment
 import com.example.utils.extensions.replace
 import com.example.weather.model.WeatherData
 import com.example.weather.ui.WeatherFragment
-import com.example.weather.ui.WeatherViewModel
 import com.example.workingweather.R
 import com.example.workingweather.databinding.FragmentDefaultBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 import kotlin.math.roundToInt
 
 
 private const val KEY = "7465cd2201320080ec76abc3b7bb945d"
+
 class DefaultFragment :
     BaseFragment(R.layout.fragment_default) {
 
-    private val viewModel: DefaultViewModel by viewModel()
+    private val viewModel: DefaultViewModel by inject()
     private lateinit var binding: FragmentDefaultBinding
 
     companion object {
@@ -41,52 +41,50 @@ class DefaultFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bind()
-
-            viewModel.getWeatherData(KEY, binding.myCityTextView.text.toString())
+        viewModel.getWeatherData(cityName = binding.myCityTextView.text.toString(),key = KEY )
         with(binding) {
+
+            observe(viewModel.defaultWeatherFlow) { weatherData ->
+                showData(weatherData)
+                changeBackgroundImage(weatherData)
+            }
+
+            observe(viewModel.isLoadingDefault) { isLoading ->
+                progressBar.isVisible = isLoading
+                setContent(!isLoading)
+            }
+
             buttonShowOtherCity.setOnClickListener {
-                replace(WeatherFragment.newInstance(),R.id.fragmentContainer)
+                replace(WeatherFragment.newInstance(), R.id.fragmentContainer)
             }
             moreButton.setOnClickListener {
-                if (tempTextView.text != ""){
-                    replace(WeatherDetailedPageFragment.newInstance(viewModel.defaultWeatherLiveData.value),R.id.fragmentContainer)
+                if (tempTextView.text != "") {
+                    replace(
+                        WeatherDetailedPageFragment.newInstance(viewModel.defaultWeatherFlow.value),
+                        R.id.fragmentContainer
+                    )
                 }
             }
 
         }
     }
 
-    fun bind() {
-        viewModel.defaultWeatherLiveData.observe(viewLifecycleOwner) { weatherData ->
-            showData(weatherData)
-            changeBackgroundImage(weatherData)
-        }
 
-        with(binding) {
-            viewModel.isLoadingDefault.observe(viewLifecycleOwner) { isLoading ->
-                progressBar.isVisible = isLoading
-                setContent(!isLoading)
-            }
-        }
-    }
-
-
-    fun showData(data: WeatherData) {
+    fun showData(data: WeatherData?) {
         Timber.d("_____showData: %s", data)
         with(binding) {
-            tempTextView.text = data.main.temp.roundToInt().toString()
-            weatherTextView.text = data.weather.first().description
-            airHumidityTextView.text = data.main.humidity.toString()
-            windSpeedTextView.text = data.wind.speed.toString()
-            feelsLikeTextView.text = data.main.feels_like.toString()
+            tempTextView.text = data?.main?.temp?.roundToInt().toString()
+            weatherTextView.text = data?.weather?.first()?.description
+            airHumidityTextView.text = data?.main?.humidity.toString()
+            windSpeedTextView.text = data?.wind?.speed.toString()
+            feelsLikeTextView.text = data?.main?.feels_like.toString()
             changeBackgroundImage(data)
         }
     }
 
-     fun changeBackgroundImage(data: WeatherData) {
+    fun changeBackgroundImage(data: WeatherData?) {
         with(binding) {
-            when (data.weather.first().description) {
+            when (data?.weather?.first()?.description) {
                 "clear sky" -> defaultFragmentContainer.setBackgroundResource(R.drawable.clear_sky)
                 "overcast clouds" -> defaultFragmentContainer.setBackgroundResource(R.drawable.overcastclouds)
                 "few clouds" -> defaultFragmentContainer.setBackgroundResource(R.drawable.few_clouds)

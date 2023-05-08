@@ -1,13 +1,13 @@
 package com.example.five_days_weather.ui
 
 import com.example.common.mvp.BasePresenter
-import com.example.five_days_weather.interactor.WeatherInteractor
+import com.example.five_days_weather.interactor.FiveDaysInteractor
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
 class FiveDaysWeatherPresenter(
-    private val interactor: WeatherInteractor
+    private val interactor: FiveDaysInteractor
 ) : FiveDaysWeatherContract.Presenter,
     BasePresenter<FiveDaysWeatherContract.View>() {
 

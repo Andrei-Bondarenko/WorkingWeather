@@ -5,9 +5,9 @@ import com.example.five_days_weather.model.WeatherConverter
 import com.example.five_days_weather.model.WeatherData
 import timber.log.Timber
 
-class WeatherRemoteRepository(
+class FiveDaysRemoteRepository(
     private val api: WeatherApi
-) : WeatherRepository {
+) : FiveDaysRepository {
 
 
     override suspend fun getWeatherData(city: String, key: String): WeatherData {

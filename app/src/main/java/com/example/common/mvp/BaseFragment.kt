@@ -32,7 +32,7 @@ abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
         rootView?.let { super.onViewCreated(it, savedInstanceState) }
         rootView = view
     }
-    fun <T : Any, F : Flow<T>> observe(flow: F, body: (T) -> Unit) {
+    fun <T : Any?, F : Flow<T>> observe(flow: F, body: (T) -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 flow.collect { body(it) }

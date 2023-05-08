@@ -2,6 +2,7 @@ package com.example
 
 import android.app.Application
 import com.example.common.di.NetworkModule
+import com.example.five_days_weather.di.FiveDaysWeatherModule
 import com.example.weather.di.WeatherModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -27,7 +28,7 @@ class App : Application() {
                 listOf(
                     NetworkModule.create(),
                     WeatherModule.create(),
-//                    FiveDaysModule.create()
+                    FiveDaysWeatherModule.create()
                 )
             )
         }

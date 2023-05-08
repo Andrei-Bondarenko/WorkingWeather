@@ -12,9 +12,9 @@ import java.util.concurrent.CancellationException
 class WeatherViewModel(
     private val interactor: WeatherInteractor
 ) : ViewModel() {
-    private val _weatherFlow = MutableSharedFlow<WeatherData>()
-    val weatherFlow: SharedFlow<WeatherData>
-        get() = _weatherFlow.asSharedFlow()
+    private val _weatherFlow = MutableStateFlow<WeatherData?>(null)
+    val weatherFlow: StateFlow<WeatherData?>
+        get() = _weatherFlow.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val loading: StateFlow<Boolean>
